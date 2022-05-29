@@ -1,7 +1,10 @@
 import React from "react"
 
-function App() {
-  return <></>
+// components
+import Hangman from "./components/Hangman/Hangman"
+
+const App = () => {
+  return <Hangman />
 }
 
 export default App
