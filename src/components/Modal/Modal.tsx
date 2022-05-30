@@ -14,11 +14,11 @@ interface Props {
 
 const Modal = ({ children, isOpened }: Props) => {
   return (
-    <AnimatePresence>
+    <AnimatePresence exitBeforeEnter>
       {isOpened && (
         <StyledModal>
-          <StyledMask variants={FadeIn} initial="hidden" animate="show">
-            <StyledCard variants={FadeUp} initial="hidden" animate="show">
+          <StyledMask variants={FadeIn} initial="hidden" animate="show" exit="hidden">
+            <StyledCard variants={FadeUp} initial="hidden" animate="show" exit="hidden">
               {children}
             </StyledCard>
           </StyledMask>
