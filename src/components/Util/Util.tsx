@@ -6,10 +6,16 @@ import { StyledUtil } from "./styled"
 // components
 import Button from "../Button/Button"
 
-const Util = () => {
+interface Props {
+  onShowHow: (e: React.MouseEvent) => void
+}
+
+const Util = ({ onShowHow }: Props) => {
   return (
     <StyledUtil>
-      <Button color="info">게임 방법</Button>
+      <Button color="info" onClick={onShowHow}>
+        게임 방법
+      </Button>
     </StyledUtil>
   )
 }

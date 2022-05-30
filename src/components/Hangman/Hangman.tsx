@@ -13,6 +13,7 @@ import Wrong from "../Wrong/Wrong"
 import Util from "../Util/Util"
 import WinModal from "../WinModal/WinModal"
 import LoseModal from "../LoseModal/LoseModal"
+import HowModal from "../HowModal/HowModal"
 
 type Status = "WAITING" | "IN_PROGRESS" | "WIN" | "LOSE"
 
@@ -27,6 +28,8 @@ function App() {
   const [correctLetters, setCorrectLetters] = useState<string[]>([])
   const [incorrectLetters, setIncorrectLetters] = useState<string[]>([])
   const [remainingLetters, setRemainingLetters] = useState<string[]>([])
+
+  const [howModalIsOpened, setHowModalIsOpened] = useState<boolean>(false)
 
   /**
    * 새로운 게임을 시작한다.
@@ -110,11 +113,12 @@ function App() {
         <Life remainingLife={remainingLife} />
         {answer && <Guess answer={answer} correctLetters={correctLetters} />}
         <Wrong incorrectLetters={incorrectLetters} />
-        <Util />
+        <Util onShowHow={() => setHowModalIsOpened(true)} />
       </StyledContainer>
 
       <WinModal isOpened={status === "WIN"} onReplay={() => gameStart()} />
       <LoseModal isOpened={status === "LOSE"} onReplay={() => gameStart()} />
+      <HowModal isOpened={howModalIsOpened} onClose={() => setHowModalIsOpened(false)} />
     </>
   )
 }
