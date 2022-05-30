@@ -77,11 +77,12 @@ function App() {
 
       if (isInclude) {
         setCorrectLetters((prev) => concat(prev)(key))
-        setRemainingLetters(prev => filter((letter: string) => letter !== key)(prev))
-      }
-      else {
+        setRemainingLetters((prev) =>
+          filter((letter: string) => letter !== key)(prev)
+        )
+      } else {
         setIncorrectLetters((prev) => concat(prev)(key))
-        setRemainingLife((prev) => prev - 1 < 0 ? 0 : prev - 1)
+        setRemainingLife((prev) => (prev - 1 < 0 ? 0 : prev - 1))
       }
     }
 
@@ -90,7 +91,14 @@ function App() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown)
     }
-  }, [inko, answer, correctLetters, incorrectLetters, remainingLetters, isValidKey])
+  }, [
+    inko,
+    answer,
+    correctLetters,
+    incorrectLetters,
+    remainingLetters,
+    isValidKey,
+  ])
 
   useEffect(() => {
     if (remainingLife === 0) setStatus("LOSE")
@@ -117,8 +125,17 @@ function App() {
       </StyledContainer>
 
       <WinModal isOpened={status === "WIN"} onReplay={() => gameStart()} />
-      <LoseModal isOpened={status === "LOSE"} onReplay={() => gameStart()} />
-      <HowModal isOpened={howModalIsOpened} onClose={() => setHowModalIsOpened(false)} />
+      {answer && (
+        <LoseModal
+          isOpened={status === "LOSE"}
+          answer={answer}
+          onReplay={() => gameStart()}
+        />
+      )}
+      <HowModal
+        isOpened={howModalIsOpened}
+        onClose={() => setHowModalIsOpened(false)}
+      />
     </>
   )
 }
